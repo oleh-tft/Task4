@@ -47,7 +47,17 @@ void MyString::Output()
 
 void MyString::MyStrcpy(MyString& obj)
 {
-	//TODO
+	/*
+	obj.length = length;
+	obj.str = new char[length + 1];
+	strcpy_s(obj.str, length + 1, str);
+	*/
+
+	
+	length = obj.length;
+	str = new char[length + 1];
+	strcpy_s(str, length + 1, obj.str);
+	
 }
 
 bool MyString::MyStrStr(const char* str)
