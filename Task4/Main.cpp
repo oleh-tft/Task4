@@ -49,5 +49,5 @@ void TestDelete()
 
 int main()
 {
-
+	TestDelete();
 }
