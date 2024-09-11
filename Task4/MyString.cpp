@@ -1,11 +1,11 @@
 #include<iostream>
 #include "MyString.h"
+using namespace std;
 
 MyString::MyString()
 {
 	length = 80;
 	str = new char[length];
-
 }
 
 MyString::MyString(int Length)
@@ -30,29 +30,59 @@ MyString::~MyString()
 void MyString::Input()
 {
 	char buf[100];
-	std::cout << "Enter String: ";
-	std::cin >> buf;
+	cout << "Enter String: ";
+	cin >> buf;
 
 	if (str != nullptr)
 		delete[] str;
-	length = sizeof(buf); //TEST
+
+	length = strlen(buf);
 	str = new char[length + 1];
 	strcpy_s(str, length + 1, buf);
 }
 
 void MyString::Output()
 {
-	std::cout << "Your String: " << str << std::endl;
+	cout << "String: " << str << endl;
 }
 
 void MyString::MyStrcpy(MyString& obj)
 {
-	//TODO
+	/*
+	if (str != nullptr)
+		delete[] str;
+
+	length = obj.length;
+	str = new char[length + 1];
+	strcpy_s(str, length + 1, obj.str);
+	*/
+
+	if (obj.str != nullptr)
+		delete[] obj.str;
+
+	obj.length = length;
+	obj.str = new char[obj.length + 1];
+	strcpy_s(obj.str, obj.length + 1, str);
+
 }
 
-bool MyString::MyStrStr(const char* str)
+bool MyString::MyStrStr(const char* Str)
 {
-	//TODO
+	for (int i = 0; i < length; i++) 
+	{
+		for (int j = 0; j < strlen(Str); j++) 
+		{
+			if (str[i + j] != Str[j]) 
+			{
+				break;
+			}
+			else if (j == strlen(Str) - 1) 
+			{
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
 
@@ -73,16 +103,71 @@ int MyString::MyStrLen()
 
 void MyString::MyStrCat(MyString& b)
 {
-	//TODO
+	char* temp = new char[MyStrLen() + b.MyStrLen() + 1];
+	for (int i = 0; i < MyStrLen(); i++)
+	{
+		temp[i] = str[i];
+	}
+	for (int i = 0; i < b.MyStrLen(); i++)
+	{
+		temp[MyStrLen() + i] = b.str[i];
+	}
+	temp[MyStrLen() + b.MyStrLen()] = '\0';
+	
+	if (str != nullptr)
+		delete[] str;
+
+	length = strlen(temp);
+	str = new char[length + 1];
+	strcpy_s(str, length + 1, temp);
+
+	delete[] temp;
 }
 
 void MyString::MyDelChr(char c)
-{
-	//TODO
+{	
+	int removedCounter = 0;
+	char* temp = new char[length + 1];
+	strcpy_s(temp, length + 1, str);
+
+	for (int i = 0; i < MyStrLen(); i++)
+	{
+		if (temp[i] == c)
+		{
+			temp[i] == str[i + 1];
+			removedCounter++;
+		}
+	}
+	cout << temp << endl;
+	
+	if (removedCounter > 0)
+	{
+		length -= removedCounter;
+
+		if (str != nullptr)
+			delete[] str;
+
+		str = new char[length + 1];
+		strcpy_s(str, length + 1, temp);
+
+		temp[MyStrLen()] = '\0';
+	}
+	
+	delete[] temp;
 }
 
 int MyString::MyStrCmp(MyString& b)
 {
-	//TODO
-	return 0;
+	if (length == b.length)
+	{
+		return 0;
+	} 
+	else if (length < b.length) 
+	{
+		return -1;
+	}
+	else 
+	{
+		return 1;
+	}
 }
