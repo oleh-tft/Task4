@@ -49,8 +49,5 @@ void TestDelete()
 
 int main()
 {
-	TestDelete();
-	//TestConcat();
-	//TestCopy();
 
 }

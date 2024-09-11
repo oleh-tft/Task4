@@ -48,21 +48,6 @@ void MyString::Output()
 
 void MyString::MyStrcpy(MyString& obj)
 {
-	/*
-	if (str != nullptr)
-		delete[] str;
-
-	length = obj.length;
-	str = new char[length + 1];
-	strcpy_s(str, length + 1, obj.str);
-	*/
-
-	if (obj.str != nullptr)
-		delete[] obj.str;
-
-	obj.length = length;
-	obj.str = new char[obj.length + 1];
-	strcpy_s(obj.str, obj.length + 1, str);
 
 }
 
