@@ -3,12 +3,6 @@
 
 using namespace std;
 
-void TestLength()
-{
-	MyString a("four");
-	cout << "Length: " << a.MyStrLen() << endl;
-}
-
 void TestCopy()
 {
 	MyString a("Woof Woof");
@@ -47,7 +41,21 @@ void TestDelete()
 	bad.Output();
 }
 
+void TestLength()
+{
+	MyString len("HelloLongWorld");
+	cout << "Length: " << len.MyStrLen() << endl;
+}
+
+void TestInit()
+{
+	MyString inp;
+	inp.Input();
+	inp.Output();
+	cout << "Length: " << inp.MyStrLen() << endl;
+}
+
 int main()
 {
-	TestDelete();
+	TestInit();
 }

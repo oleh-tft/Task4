@@ -2,6 +2,16 @@
 #include "MyString.h"
 using namespace std;
 
+int cLength(const char* Ar)
+{
+	int len = 0;
+	while (Ar[len] != '\0')
+	{
+		len++;
+	}
+	return len;
+}
+
 MyString::MyString()
 {
 	length = 80;
@@ -16,7 +26,7 @@ MyString::MyString(int Length)
 
 MyString::MyString(const char* Str)
 {
-	length = strlen(Str);
+	length = cLength(Str);
 	str = new char[length + 1];
 	strcpy_s(str, length + 1, Str);
 }
@@ -31,12 +41,12 @@ void MyString::Input()
 {
 	char buf[100];
 	cout << "Enter String: ";
-	cin >> buf;
+	cin.getline(buf, 100);
 
 	if (str != nullptr)
 		delete[] str;
 
-	length = strlen(buf);
+	length = cLength(buf);
 	str = new char[length + 1];
 	strcpy_s(str, length + 1, buf);
 }
@@ -70,13 +80,13 @@ bool MyString::MyStrStr(const char* Str)
 {
 	for (int i = 0; i < length; i++) 
 	{
-		for (int j = 0; j < strlen(Str); j++) 
+		for (int j = 0; j < cLength(Str); j++) 
 		{
 			if (str[i + j] != Str[j]) 
 			{
 				break;
 			}
-			else if (j == strlen(Str) - 1) 
+			else if (j == cLength(Str) - 1)
 			{
 				return true;
 			}
@@ -98,7 +108,7 @@ int MyString::MyChr(char c)
 
 int MyString::MyStrLen()
 {
-	return length;
+	return cLength(str);
 }
 
 void MyString::MyStrCat(MyString& b)
@@ -117,7 +127,7 @@ void MyString::MyStrCat(MyString& b)
 	if (str != nullptr)
 		delete[] str;
 
-	length = strlen(temp);
+	length = cLength(temp);
 	str = new char[length + 1];
 	strcpy_s(str, length + 1, temp);
 
