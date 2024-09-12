@@ -3,6 +3,14 @@
 
 using namespace std;
 
+void TestInput()
+{
+	MyString inp;
+	inp.Input();
+	inp.Output();
+	cout << "Length: " << inp.MyStrLen() << endl;
+}
+
 void TestCopy()
 {
 	MyString a("Woof Woof");
@@ -11,16 +19,31 @@ void TestCopy()
 	b.Output();
 	a.MyStrcpy(b);
 	a.Output();
-	b.Output();
 }
 
 void TestSubstring()
 {
 	MyString id("xjitasdT TestinG");
-
-	bool found = id.MyStrStr("sdT Testin");
 	id.Output();
+
+	bool found = id.MyStrStr("sdT T");
 	cout << found << endl;
+	bool found2 = id.MyStrStr("sdT TE");
+	cout << found2 << endl;
+}
+
+void TestChar()
+{
+	MyString id("xjitasdT TestinG");
+	id.Output();
+	char toSearch = 'n';
+	cout << toSearch << " index: " << id.MyChr(toSearch) << endl;
+}
+
+void TestLength()
+{
+	MyString len("HelloLongWorld");
+	cout << "Length: " << len.MyStrLen() << endl;
 }
 
 void TestConcat()
@@ -36,28 +59,32 @@ void TestConcat()
 
 void TestDelete()
 {
-	MyString bad("abxcxdefxg");
+	MyString bad("xaxbxcdefgxx");
 	bad.MyDelChr('x');
 	bad.Output();
 }
 
-void TestLength()
+void TestCompare()
 {
-	MyString len("HelloLongWorld");
-	cout << "Length: " << len.MyStrLen() << endl;
-}
-
-void TestInit()
-{
-	MyString inp;
-	inp.Input();
-	inp.Output();
-	cout << "Length: " << inp.MyStrLen() << endl;
+	MyString a("ooo");
+	MyString b("xxxxx");
+	cout << a.MyStrCmp(b) << endl;
 }
 
 int main()
 {
-	//TestCopy();
-	MyString a("Test");
-	a.Output();
+	
+	MyString obj1("String 1");
+	obj1.Output();
+	cout << "Length: " << obj1.MyStrLen() << endl;
+
+	TestInput();
+	TestCopy();
+	TestSubstring();
+	TestChar();
+	TestLength();
+	TestConcat();
+	TestDelete();
+	TestCompare();
+
 }

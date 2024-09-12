@@ -2,25 +2,6 @@
 #include "MyString.h"
 using namespace std;
 
-int cLength(const char* Ar)
-{
-	int len = 0;
-	while (Ar[len] != '\0')
-	{
-		len++;
-	}
-	return len;
-}
-
-void cCopy(char* to, const char* from)
-{
-	to = new char[cLength(from) + 1];
-	for (int i = 0; i < cLength(to); i++)
-	{
-		to[i] = from[i];
-	}
-}
-
 MyString::MyString()
 {
 	length = 80;
@@ -35,12 +16,19 @@ MyString::MyString(int Length)
 
 MyString::MyString(const char* Str)
 {
-	length = cLength(Str);
-	str = new char[cLength(Str) + 1];
-	for (int i = 0; i < cLength(str); i++)
+	int len = 0;
+	while (Str[len] != '\0')
+	{
+		len++;
+	}
+	length = len;
+
+	str = new char[length + 1];
+	for (int i = 0; i < length; i++)
 	{
 		str[i] = Str[i];
 	}
+	str[length] = '\0';
 }
 
 MyString::~MyString()
@@ -54,13 +42,10 @@ void MyString::Input()
 	char buf[100];
 	cout << "Enter String: ";
 	cin.getline(buf, 100);
+	MyString temp(buf);
 
-	if (str != nullptr)
-		delete[] str;
-
-	length = cLength(buf);
-	str = new char[length + 1];
-	strcpy_s(str, length + 1, buf);
+	length = temp.MyStrLen();
+	MyStrcpy(temp);
 }
 
 void MyString::Output()
@@ -70,29 +55,30 @@ void MyString::Output()
 
 void MyString::MyStrcpy(MyString& obj)
 {
-	if (obj.str != nullptr)
-		delete[] obj.str;
+	if (str != nullptr)
+		delete[] str;
 
-	obj.length = length;
-	obj.str = new char[obj.length + 1];
+	length = obj.length;
+	str = new char[length + 1];
 	for (int i = 0; i < MyStrLen(); i++)
 	{
-		obj.str[i] = str[i];
+		str[i] = obj.str[i];
 	}
-	obj.str[obj.length] = '\0';
+	str[length] = '\0';
 }
 
 bool MyString::MyStrStr(const char* Str)
 {
+	MyString temp(Str);
 	for (int i = 0; i < length; i++) 
 	{
-		for (int j = 0; j < cLength(Str); j++) 
+		for (int j = 0; j < temp.MyStrLen(); j++)
 		{
 			if (str[i + j] != Str[j]) 
 			{
 				break;
 			}
-			else if (j == cLength(Str) - 1)
+			else if (j == temp.MyStrLen() - 1)
 			{
 				return true;
 			}
@@ -114,12 +100,18 @@ int MyString::MyChr(char c)
 
 int MyString::MyStrLen()
 {
-	return cLength(str);
+	int len = 0;
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+	return len;
 }
 
 void MyString::MyStrCat(MyString& b)
 {
 	char* temp = new char[MyStrLen() + b.MyStrLen() + 1];
+
 	for (int i = 0; i < MyStrLen(); i++)
 	{
 		temp[i] = str[i];
@@ -129,13 +121,11 @@ void MyString::MyStrCat(MyString& b)
 		temp[MyStrLen() + i] = b.str[i];
 	}
 	temp[MyStrLen() + b.MyStrLen()] = '\0';
-	
-	if (str != nullptr)
-		delete[] str;
 
-	length = cLength(temp);
-	str = new char[length + 1];
-	strcpy_s(str, length + 1, temp);
+	MyString cpy(temp);
+
+	length = cpy.MyStrLen();
+	MyStrcpy(cpy);
 
 	delete[] temp;
 }
@@ -143,33 +133,39 @@ void MyString::MyStrCat(MyString& b)
 void MyString::MyDelChr(char c)
 {	
 	int removedCounter = 0;
-	char* temp = new char[length + 1];
-	strcpy_s(temp, length + 1, str);
 
-	for (int i = 0; i < MyStrLen(); i++)
+	MyString temp(str);
+
+	for (int i = 0; i < temp.MyStrLen(); i++) 
 	{
-		if (temp[i] == c)
-		{
-			temp[i] == str[i + 1];
+		if (i + removedCounter == temp.MyStrLen() - 1 && temp.str[i] == c) {
 			removedCounter++;
+			break;
+		}
+		if (temp.str[i] == c)
+		{
+			removedCounter++;
+
+			for (int j = i; j < temp.MyStrLen() - 1; j++)
+			{
+				temp.str[j] = temp.str[j + 1];
+			}
+			i--;
 		}
 	}
-	cout << temp << endl;
-	
+
 	if (removedCounter > 0)
 	{
 		length -= removedCounter;
-
-		if (str != nullptr)
-			delete[] str;
-
 		str = new char[length + 1];
-		strcpy_s(str, length + 1, temp);
 
-		temp[MyStrLen()] = '\0';
+		for (int i = 0; i < length; i++)
+		{
+			str[i] = temp.str[i];
+		}
+
+		str[length] = '\0';
 	}
-	
-	delete[] temp;
 }
 
 int MyString::MyStrCmp(MyString& b)
