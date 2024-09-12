@@ -57,5 +57,7 @@ void TestInit()
 
 int main()
 {
-	TestCopy();
+	//TestCopy();
+	MyString a("Test");
+	a.Output();
 }

@@ -12,6 +12,15 @@ int cLength(const char* Ar)
 	return len;
 }
 
+void cCopy(char* to, const char* from)
+{
+	to = new char[cLength(from) + 1];
+	for (int i = 0; i < cLength(to); i++)
+	{
+		to[i] = from[i];
+	}
+}
+
 MyString::MyString()
 {
 	length = 80;
@@ -27,8 +36,11 @@ MyString::MyString(int Length)
 MyString::MyString(const char* Str)
 {
 	length = cLength(Str);
-	str = new char[length + 1];
-	strcpy_s(str, length + 1, Str);
+	str = new char[cLength(Str) + 1];
+	for (int i = 0; i < cLength(str); i++)
+	{
+		str[i] = Str[i];
+	}
 }
 
 MyString::~MyString()
