@@ -58,22 +58,16 @@ void MyString::Output()
 
 void MyString::MyStrcpy(MyString& obj)
 {
-	/*
-	if (str != nullptr)
-		delete[] str;
-
-	length = obj.length;
-	str = new char[length + 1];
-	strcpy_s(str, length + 1, obj.str);
-	*/
-
 	if (obj.str != nullptr)
 		delete[] obj.str;
 
 	obj.length = length;
 	obj.str = new char[obj.length + 1];
-	strcpy_s(obj.str, obj.length + 1, str);
-
+	for (int i = 0; i < MyStrLen(); i++)
+	{
+		obj.str[i] = str[i];
+	}
+	obj.str[obj.length] = '\0';
 }
 
 bool MyString::MyStrStr(const char* Str)

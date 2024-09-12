@@ -57,5 +57,5 @@ void TestInit()
 
 int main()
 {
-	TestInit();
+	TestCopy();
 }
