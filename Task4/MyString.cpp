@@ -2,16 +2,22 @@
 #include "MyString.h"
 using namespace std;
 
+int MyString::count = 0;
+
 MyString::MyString()
 {
 	length = 80;
 	str = new char[length];
+
+	count++;
 }
 
 MyString::MyString(int Length)
 {
 	length = Length;
 	str = new char[length];
+
+	count++;
 }
 
 MyString::MyString(const char* Str)
@@ -29,12 +35,16 @@ MyString::MyString(const char* Str)
 		str[i] = Str[i];
 	}
 	str[length] = '\0';
+
+	count++;
 }
 
 MyString::~MyString()
 {
 	delete[] str;
 	length = 0;
+	
+	count--;
 }
 
 void MyString::Input()
@@ -182,4 +192,9 @@ int MyString::MyStrCmp(MyString& b)
 	{
 		return 1;
 	}
+}
+
+int MyString::GetCount()
+{
+	return count;
 }

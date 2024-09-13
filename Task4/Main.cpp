@@ -87,4 +87,6 @@ int main()
 	TestDelete();
 	TestCompare();
 
+	cout << "String count:" << MyString::GetCount() << endl;
+
 }
