@@ -9,6 +9,7 @@ public:
 	MyString();
 	MyString(int Length);
 	MyString(const char* Str);
+	MyString(const MyString& obj);
 	~MyString();
 	void Input();
 	void Output();

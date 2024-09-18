@@ -87,6 +87,9 @@ int main()
 	TestDelete();
 	TestCompare();
 
+	MyString obj2 = obj1;
+	obj2.Output();
+
 	cout << "String count:" << MyString::GetCount() << endl;
 
 }

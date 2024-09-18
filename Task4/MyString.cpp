@@ -39,6 +39,15 @@ MyString::MyString(const char* Str)
 	count++;
 }
 
+MyString::MyString(const MyString& obj)
+{
+	length = obj.length;
+	str = new char[obj.length + 1];
+	strcpy_s(str, obj.length + 1, obj.str);
+
+	count++;
+}
+
 MyString::~MyString()
 {
 	delete[] str;
