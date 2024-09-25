@@ -92,4 +92,10 @@ int main()
 
 	cout << "String count:" << MyString::GetCount() << endl;
 
+	MyString obj3("Obj 3");
+	obj3();
+	obj3 = obj1;
+	obj3();
+	cout << obj3[7];
+
 }

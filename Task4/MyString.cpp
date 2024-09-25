@@ -207,3 +207,30 @@ int MyString::GetCount()
 {
 	return count;
 }
+
+MyString& MyString::operator=(const MyString& obj)
+{
+	if (this == &obj) return *this;
+	if (str != nullptr) delete[] str;
+
+	str = new char[obj.length + 1];
+	strcpy_s(str, obj.length + 1, obj.str);
+	length = obj.length;
+
+	return *this;
+}
+
+char MyString::operator[](int index)
+{
+	if (index >= length) {
+		cout << "Index out of bounds\n";
+		return ' ';
+	}
+
+	return str[index];
+}
+
+void MyString::operator() ()
+{
+	cout << str << endl;
+}

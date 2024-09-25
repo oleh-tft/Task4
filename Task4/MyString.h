@@ -21,5 +21,8 @@ public:
 	void MyDelChr(char c);
 	int MyStrCmp(MyString& b);
 	static int GetCount();
+	MyString& operator=(const MyString& obj);
+	char operator[] (int index);
+	void operator() ();
 };
 
