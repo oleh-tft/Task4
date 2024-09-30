@@ -64,6 +64,8 @@ MyString::MyString(MyString&& obj)
 	length = obj.length;
 	obj.str = nullptr;
 	obj.length = 0;
+
+	count++;
 }
 
 MyString& MyString::operator=(MyString&& obj)
@@ -155,6 +157,11 @@ int MyString::MyStrLen()
 		len++;
 	}
 	return len;
+}
+
+char* MyString::GetStr() const
+{
+	return str;
 }
 
 void MyString::MyStrCat(MyString& b)
@@ -253,6 +260,28 @@ void MyString::operator() ()
 	cout << str << endl;
 }
 
+MyString& MyString::operator+=(const char* text)
+{
+	char* temp = new char[length + strlen(text)];
+
+	for (int i = 0; i < length; i++)
+	{
+		temp[i] = str[i];
+	}
+	for (int i = 0; i < strlen(text); i++)
+	{
+		temp[i + length] = text[i];
+	}
+	temp[length + strlen(text)] = '\0';
+
+	delete[] str;
+	length = strlen(temp);
+	str = new char[length + 1];
+	strcpy_s(str, length + 1, temp);
+
+	return *this;
+}
+
 ostream& operator<<(ostream& os, MyString& obj)
 {
 	os << obj.str << endl;
@@ -261,12 +290,23 @@ ostream& operator<<(ostream& os, MyString& obj)
 
 istream& operator>>(istream& is, MyString& obj)
 {
-	cout << "Length: ";
+	if (obj.str != nullptr)
+		delete[] obj.str;
+
 	char buf[100];
 	is >> buf;
 
+	obj.length = strlen(buf);
 	obj.str = new char[obj.length + 1];
 	strcpy_s(obj.str, obj.length + 1, buf);
 	
 	return is;
+}
+
+MyString operator+(const char* text, MyString& b)
+{
+	MyString temp(text);
+	temp += b.GetStr();
+
+	return temp;
 }
