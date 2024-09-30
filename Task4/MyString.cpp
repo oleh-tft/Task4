@@ -1,6 +1,4 @@
-#include<iostream>
 #include "MyString.h"
-using namespace std;
 
 int MyString::count = 0;
 
@@ -46,6 +44,38 @@ MyString::MyString(const MyString& obj)
 	strcpy_s(str, obj.length + 1, obj.str);
 
 	count++;
+}
+
+MyString& MyString::operator=(const MyString& obj)
+{
+	if (this == &obj) return *this;
+	if (str != nullptr) delete[] str;
+
+	str = new char[obj.length + 1];
+	strcpy_s(str, obj.length + 1, obj.str);
+	length = obj.length;
+
+	return *this;
+}
+
+MyString::MyString(MyString&& obj)
+{
+	str = obj.str;
+	length = obj.length;
+	obj.str = nullptr;
+	obj.length = 0;
+}
+
+MyString& MyString::operator=(MyString&& obj)
+{
+	if (str != nullptr) delete[] str;
+
+	str = obj.str;
+	length = obj.length;
+	obj.str = nullptr;
+	obj.length = 0;
+
+	return *this;
 }
 
 MyString::~MyString()
@@ -208,18 +238,6 @@ int MyString::GetCount()
 	return count;
 }
 
-MyString& MyString::operator=(const MyString& obj)
-{
-	if (this == &obj) return *this;
-	if (str != nullptr) delete[] str;
-
-	str = new char[obj.length + 1];
-	strcpy_s(str, obj.length + 1, obj.str);
-	length = obj.length;
-
-	return *this;
-}
-
 char MyString::operator[](int index)
 {
 	if (index >= length) {
@@ -233,4 +251,22 @@ char MyString::operator[](int index)
 void MyString::operator() ()
 {
 	cout << str << endl;
+}
+
+ostream& operator<<(ostream& os, MyString& obj)
+{
+	os << obj.str << endl;
+	return os;
+}
+
+istream& operator>>(istream& is, MyString& obj)
+{
+	cout << "Length: ";
+	char buf[100];
+	is >> buf;
+
+	obj.str = new char[obj.length + 1];
+	strcpy_s(obj.str, obj.length + 1, buf);
+	
+	return is;
 }

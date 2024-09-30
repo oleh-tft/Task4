@@ -1,15 +1,23 @@
 #pragma once
+#include<iostream>
+using namespace std;
+
 class MyString
 {
 	char* str;
 	int length;
 	static int count;
+	friend ostream& operator<<(ostream& os, MyString& obj);
+	friend istream& operator>>(istream& is, MyString& obj);
 
 public:
 	MyString();
 	MyString(int Length);
 	MyString(const char* Str);
 	MyString(const MyString& obj);
+	MyString& operator=(const MyString& obj);
+	MyString(MyString&& obj);
+	MyString& operator=(MyString&& obj);
 	~MyString();
 	void Input();
 	void Output();
@@ -21,7 +29,6 @@ public:
 	void MyDelChr(char c);
 	int MyStrCmp(MyString& b);
 	static int GetCount();
-	MyString& operator=(const MyString& obj);
 	char operator[] (int index);
 	void operator() ();
 };
