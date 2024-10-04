@@ -37,6 +37,21 @@ MyString::MyString(const char* Str)
 	count++;
 }
 
+MyString::MyString(initializer_list<char> a)
+{
+	length = a.size();
+	str = new char[length + 1];
+	for (auto x = a.begin(); x != a.end(); x++)
+	{
+		*str = *x;
+		str++;
+	}
+	str -= length;
+	str[length] = '\0';
+
+	count++;
+}
+
 MyString::MyString(const MyString& obj)
 {
 	length = obj.length;

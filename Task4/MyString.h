@@ -14,6 +14,7 @@ public:
 	MyString();
 	MyString(int Length);
 	MyString(const char* Str);
+	MyString(initializer_list<char> a);
 
 	MyString(const MyString& obj);
 	MyString& operator=(const MyString& obj);

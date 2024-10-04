@@ -28,4 +28,7 @@ int main()
 	obj5 = "Hello" + obj4;
 	cout << obj5;
 	cout << obj4;
+
+	MyString initTest{ 'C', 'o', 'n', 's', 't', 'r', 'u', 'c', 't', 'e', 'd'};
+	cout << initTest;
 }
