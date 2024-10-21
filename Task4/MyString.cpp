@@ -297,6 +297,23 @@ MyString& MyString::operator+=(const char* text)
 	return *this;
 }
 
+void MyString::Save(char* filename)
+{
+	ofstream out(filename);
+
+	if (out.is_open())
+	{
+		out << str;
+
+		out.close();
+		cout << "File " << filename << " was created!";
+	}
+	else
+	{
+		cout << "Could not open the file" << endl;
+	}
+}
+
 ostream& operator<<(ostream& os, MyString& obj)
 {
 	os << obj.str << endl;

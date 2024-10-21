@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<fstream>
 using namespace std;
 
 class MyString
@@ -38,6 +39,8 @@ public:
 	char operator[] (int index);
 	void operator() ();
 	MyString& operator+=(const char* text);
+
+	void Save(char* filename);
 };
 
 MyString operator+(const char* text, MyString& b);

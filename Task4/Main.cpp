@@ -3,9 +3,8 @@
 
 using namespace std;
 
-int main()
+void Legacy()
 {
-	
 	MyString obj1("First String");
 	obj1.Output();
 
@@ -13,7 +12,7 @@ int main()
 	obj2.Output();
 	obj2 = move(obj1);
 	obj2.Output();
-	
+
 	MyString obj3 = move(obj2);
 	obj3.Output();
 
@@ -29,6 +28,20 @@ int main()
 	cout << obj5;
 	cout << obj4;
 
-	MyString initTest{ 'C', 'o', 'n', 's', 't', 'r', 'u', 'c', 't', 'e', 'd'};
+	MyString initTest{ 'C', 'o', 'n', 's', 't', 'r', 'u', 'c', 't', 'e', 'd' };
 	cout << initTest;
+}
+
+int main()
+{
+	MyString text;
+	text.Input();
+
+	char fileName[20];
+	cout << "Enter file name: ";
+	cin >> fileName;
+
+	text.Save(fileName);
+
+
 }
